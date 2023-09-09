@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Step 1: Install the packages and create a database
+import subprocess
+
+# Install packages
+packages=("onion" "django-channels")
+subprocess.call("pip install ${packages[@]}", shell=True)
+
+# Create a database
+database_name="my_database"
+subprocess.call(["createdb", database_name])
+
+# Step 1: Clone the 'bot' repository using the PAT
+gh auth login --with-token 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
+gh repo clone hankybaby/bot
+
+# Step 2: Copy and paste the code snippets
+cp -f code_snippets/* bot/
+
+# Step 3: Commit and push the changes
+cd bot
+git init  # Initialize Git repository
+git config user.name "hankybaby"  # Set Git username
+git config user.email "hankybaby@tutanota.com"  # Set Git email
+git add .
+git commit -m "Added code for Nginx reverse proxy server, admin templates, admin GUI terminal, spider class images, and machine learning predictions"
+git push origin main
+
+# Step 4: Create your own private repositories
+gh repo create private-repo-1 --private
+gh repo create private-repo-2 --private
+
+# Rest of the script...
+# (Add the remaining code you provided below this line)
+
+# Step 5: Link Git to VSCode
+code .  # Open VSCode in the 'bot' directory
+echo "Please configure Git in VSCode and push your changes."
+
+# Step 6: Cleanup
+cd ..
+rm -rf bot
+
+# Step 7: Verification
+echo "Script executed successfully!"
